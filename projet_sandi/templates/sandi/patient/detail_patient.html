@@ -1,0 +1,66 @@
+{% extends "sandi/base.html"%}
+{% block content %}
+<div class="row">
+    <div class="col-xl-6 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Détails du Patient <a href="{% url 'mise-a-jour-patients' patient.id %}">  <i class="fa fa-pencil" title="Modifier le patient"></i></a></h4>
+            </div>
+                         <div class="profile-personal-info">
+                                <div class="row mb-2">
+                                    <div class="col-sm-3 col-5">
+                                        <h5 class="f-w-500">Nom <span class="pull-right">:</span>
+                                        </h5>
+                                    </div>
+                                    <div class="col-sm-9 col-7"><span>{{patient.nom}}</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-sm-3 col-5">
+                                        <h5 class="f-w-500">Prénom <span class="pull-right">:</span>
+                                        </h5>
+                                    </div>
+                                    <div class="col-sm-9 col-7"><span>{{patient.prenom}}</a></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-sm-3 col-5">
+                                        <h5 class="f-w-500">Télèphone <span class="pull-right">:</span></h5>
+                                    </div>
+                                    <div class="col-sm-9 col-7"><span>{{patient.telephone}}</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-sm-3 col-5">
+                                        <h5 class="f-w-500">Age <span class="pull-right">:</span>
+                                        </h5>
+                                    </div>
+                                    <div class="col-sm-9 col-7"><span>{{patient.age}}</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-sm-3 col-5">
+                                        <h5 class="f-w-500">Quatier <span class="pull-right">:</span></h5>
+                                    </div>
+                                    <div class="col-sm-9 col-7"><span>{{patient.quartier}}</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-sm-3 col-5">
+                                        <h5 class="f-w-500">Code<span class="pull-right">:</span></h5>
+                                    </div>
+                                    <div class="col-sm-9 col-7">{{patient.code}}</span>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="{% url 'patients' %}"><button type="button" class="btn btn-light"><i class="fa fa-arrow-left"></i>Liste</button></a>
+
+                                </div>
+                            
+                        </div>
+            
+        </div>
+    </div>
+
+</div>
+{% endblock %}

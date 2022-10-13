@@ -1,0 +1,111 @@
+{% extends "sandi/base.html"%}
+{% block content %}
+<div class="row">
+    <div class="col-xl-6 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Détails de la prescription  P{{prescription.id}}
+                    {% if prescription.status == 0 %}
+                    <a href="{% url 'mise-a-jour-prescriptions' prescription.id %}">  <i class="fa fa-pencil" title="Modifier la prescription"></i></a>
+                    {% endif %}
+                </h4>
+            </div>
+                         <div class="profile-personal-info">
+                                <div class="row mb-2">
+                                    <div class="col-sm-3 col-5">
+                                        <h5 class="f-w-500">Patient <span class="pull-right">:</span>
+                                        </h5>
+                                    </div>
+                                    <div class="col-sm-9 col-7"><span>{{prescription.patient.code}}</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-sm-3 col-5">
+                                        <h5 class="f-w-500">Examen(s)<span class="pull-right">:</span>
+                                        </h5>
+                                    </div>
+                                    <div class="col-sm-9 col-7"><span>{{prescription.examen}}</a></span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-sm-3 col-5">
+                                        <h5 class="f-w-500">Laboratoire <span class="pull-right">:</span></h5>
+                                    </div>
+                                    <div class="col-sm-9 col-7"><span>{{prescription.laboratoire.nom}} {{prescription.laboratoire.ville}} {{prescription.laboratoire.quartier}}</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-sm-3 col-5">
+                                        <h5 class="f-w-500">Clinic <span class="pull-right">:</span>
+                                        </h5>
+                                    </div>
+                                    <div class="col-sm-9 col-7"><span>{{prescription.clinic.nom}} {{prescription.clinic.ville}} {{prescription.clinic.quartier}} {{prescription.clinic.telcli}}</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-sm-3 col-5">
+                                        <h5 class="f-w-500">Note <span class="pull-right">:</span></h5>
+                                    </div>
+                                    <div class="col-sm-9 col-7"><span>{{prescription.note}}</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-sm-3 col-5">
+                                        <h5 class="f-w-500">Date pré<span class="pull-right">:</span></h5>
+                                    </div>
+                                    <div class="col-sm-9 col-7">{{prescription.date_prelevement}}</span>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="{% url 'prescriptions' %}"><button type="button" class="btn btn-light"><i class="fa fa-arrow-left"></i>Liste</button></a>
+                                    {%if prescription.status == 0%}
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalLong" data-backdrop="static" data-keyboard="false">Publier les résultats</i></button>
+                                    {% else %}
+                                    {% for resultat in resultats%}
+                                        {% if resultat %}
+                                    <a href="{% url 'resultat-pdf' resultat.result_prescription.id %}" target="_blank"><button type="button" class="btn btn-success">Voir le résultat <i class="fa fa-eye"></i>
+                                    </button></a>
+                                        {% endif%}
+                                    {% endfor %}
+                                    {% endif %}
+                                    <!-- Modal Rédaction -->
+                                    <div class="modal fade" id="exampleModalLong">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="card-center">
+                                                    <div class="card-header">
+
+                                                        <button type="button" class="btn btn-outline-primary btn-xs" onclick="hideAttach('attach', 'rapid', 'examen', this); return false;">Rédiger</button>
+                                                            
+                                                        <button type="button" class="btn btn-outline-info btn-xs" onclick="showAttach('attach', 'rapid', 'examen', this); return false;">Joindre un fichier</button>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="basic-form">
+                                                            <form method="post" id="myForm" enctype="multipart/form-data">
+                                                                {% csrf_token %}
+                                                                <div class="form-row ">
+                                                                    <div class="form-group col-md-6">
+                                                                        {{ formset.as_p}}
+                                                                        {{ formset.media }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer sweetalert mt-4">
+                                                                    <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary" id="btn-submit">Envoyer à la clinique</button>
+                                                                </div>
+                                                            </form>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                
+        </div>
+    </div>  
+</div>
+{% endblock %}

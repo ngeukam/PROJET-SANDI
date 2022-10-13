@@ -1,0 +1,44 @@
+{% extends "sandi/base.html"%}
+{% block content %}
+<div class="row">
+    <div class="col-xl-6 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                {% if object %}
+                <h5 class="card-title "><span class="text-primary mb-4">Modification valeur de refèrence </span>{{object.examen}}</h5>
+                {% else %}
+                <h4 class="card-title">Définir une refèrence</h4>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Choisir un examen</label>
+                            <div class="col-sm-9">
+                               {{form.examen}} 
+                            </div>
+                        </div>
+                        <div class="input-group row   input-dark">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Valeur de refèrence</span>
+                            </div>
+                            {{form.valeur_reference}}
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                {% if object %}
+                                <a href="{% url 'detail-valeur-reference' object.id %}" class="btn light btn-secondary">Annuler</a>
+                                {% endif %}
+                                <button type="submit" class="btn btn-primary">Enregister</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+{% endblock %}

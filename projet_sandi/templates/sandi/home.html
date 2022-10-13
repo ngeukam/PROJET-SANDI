@@ -1,0 +1,134 @@
+{% extends "sandi/base.html"%}
+
+{% block title %}Analyses rapide des prélèvements{% endblock title %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12 col-xxl-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"><i class="fa fa-home"></i> Bienvenue</h4>
+            </div>
+            <div class="card-body">
+                <div id="" class="form-wizard order-create">
+                    <ul class="nav nav-wizard">
+                       
+                        <li><a class="nav-link" href="#etapes_sandi">
+                        </a></li>
+                        
+                    </ul>
+                    <div class="tab-content">
+                        <div id="etapes_sandi" class="" role="tabpanel">
+                            <div class="row emial-setup">
+                                {% if user.is_authenticated %}
+                                <div class="col-lg-3 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label for="mailclient11" class="mailclinet mailclinet-gmail">
+                                            <input type="radio" name="emailclient" id="mailclient11">
+                                            <a href="{% url 'creer-patients' %}"><span class="mail-icon">
+                                                <i class="fa fa-play" aria-hidden="true"></i>
+                                            </span></a>
+                                            
+                                        </label>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="col-lg-3 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label for="mailclient11" class="mailclinet mailclinet-gmail">
+                                            <input type="radio" name="emailclient" id="mailclient11">
+                                            <span class="mail-icon">
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                            </span>
+                                            <span class="mail-text">Se connecter</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div class="col-lg-3 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label for="mailclient12" class="mailclinet mailclinet-office">
+                                            <input type="radio" name="emailclient" id="mailclient12">
+                                            <span class="mail-icon">
+                                                <i class="flaticon-381-user-8" aria-hidden="true"></i>
+                                            </span>
+                                            <span class="mail-text">Inscire un patient</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label for="mailclient13" class="mailclinet mailclinet-drive">
+                                            <input type="radio" name="emailclient" id="mailclient13">
+                                            <span class="mail-icon">
+                                                <i class="fa fa-eyedropper" aria-hidden="true"></i>
+                                            </span>
+                                            <span class="mail-text">Prescrire un examen</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label for="mailclient14" class="mailclinet mailclinet-another">
+                                            <input type="radio" name="emailclient" id="mailclient14">
+                                            <span class="mail-icon">
+                                                <i class="fa fa-file" aria-hidden="true"></i>
+                                                
+                                            </span>
+                                            <span class="mail-text">Voir les résultats</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="skip-email text-center">
+                                        <p>Allons-y! Nous avons une longue file d'attente de patient.</p>
+                                        {% if user.is_authenticated %}
+                                        <a href="{% url 'creer-patients' %}"><button type="button" class="btn btn-rounded btn-danger btn-lg">Allons-y  <i class="fa fa-play" aria-hidden="true"></i></button>
+                                        </a>
+                                        {% else %}
+                                        <button type="button" class="btn btn-rounded btn-danger btn-lg" data-toggle="modal" data-target=".bd-example-modal-sm">Je me connecte !  <i class="fa fa-play" aria-hidden="true"></i></button>
+                                        {% endif%}
+                                        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog modal-sm">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Connexion</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="" method="POST">
+                                                            {% csrf_token %}
+                                                            <div class="form-group">
+                                                                {{form}}
+                                                            </div>
+                                                            <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                                                <div class="form-group">
+                                                                   <div class="custom-control custom-checkbox ml-1">
+                                                                        <input type="checkbox" class="custom-control-input" id="basic_checkbox_1">
+                                                                        <label class="custom-control-label" for="basic_checkbox_1">Enregister mes refèrences</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <button type="submit" class="btn btn-primary btn-block">Me connecter</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

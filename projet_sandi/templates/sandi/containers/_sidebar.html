@@ -1,0 +1,50 @@
+{% load static %}
+<div class="deznav">
+    <div class="deznav-scroll">
+        <div class="main-profile">
+            <div class="image-bx">
+                <img src="{% static 'images/profile/SanDi_avatar.png' %}" alt="">
+                <a href="javascript:void(0);"><i class="fa fa-cog" aria-hidden="true"></i></a>
+            </div>
+            {% if user.is_authenticated %}
+            <h5 class="name"><span class="font-w400">Hello,</span> {{user.username}}</h5>
+            {% endif %}
+        </div>
+        <ul class="metismenu" id="menu">
+            <li class="nav-label first">Menu principal</li>
+            <li><a href="{% url 'patients' %}" class="ai-icon" aria-expanded="false">
+                    <i class="flaticon-381-user-8"></i>
+                    <span class="nav-text">Patients</span>
+                </a>
+            </li>
+            <li><a href="{% url 'prescriptions' %}" class="ai-icon" aria-expanded="false">
+                <i class="flaticon-044-file"></i>
+                <span class="nav-text">Prescriptions d'examens</span>
+                </a>
+            </li>
+            <li><a href="{% url 'resultats' %}" class="ai-icon" aria-expanded="false">
+                <i class="fa fa-list-alt"></i>
+                <span class="nav-text">Résultats d'examens</span>
+                </a>
+            </li>
+            <li><a href="{% url 'valeurs-reference' %}" class="ai-icon" aria-expanded="false">
+                <i class="flaticon-381-network"></i>
+                <span class="nav-text">Valeurs de refèrence</span>
+                </a>
+            </li>
+            <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    <i class="flaticon-049-copy"></i>
+                    <span class="nav-text">Pages</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="#">Equipe technique</a></li>
+                    <li><a href="{% url 'deconnexion' %}">Se déconnecter</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="copyright">
+            <p><strong>SanDi  Espace de gestion des prélèvements</strong> © 2022 All Rights Reserved</p>
+            <p class="fs-12">Made with <span class="heart"></span> by LePythonis</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+{% extends "sandi/base.html"%}
+{% block title %}Liste des examens prescrits sur SanDi{% endblock title %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Prescriptions
+                    <a href="{% url 'creer-prescriptions' %}"><button type="button" class="btn btn-warning"> <span class="fa fa-plus-circle"> </span> <b>Ajouter Prescription</b></button>
+                    </a>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example3" class="display" style="min-width: 845px">
+                        <thead>
+                            
+                            <tr>
+                                <th>
+                                    <div class="custom-control custom-checkbox ml-2">
+                                        <input type="checkbox" class="custom-control-input" id="checkAll" required="">
+                                        <label class="custom-control-label" for="checkAll"></label>
+                                    </div>
+                                </th>
+                                <th>Prescription</th>
+                                <th>Patient</th>
+                                <th>Examen</th>
+                                {% if not laboratoires %}
+                                <th>Labo</th>
+                                {% endif %}
+                                <th>Clinic</th>
+                                <th>Date pvt</th>
+                                <th>Résultat</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for prescription in list_prescription %}
+                            <tr>
+                                
+                                <td>
+                                    <div class="custom-control custom-checkbox ml-2">
+                                        <input type="checkbox" class="custom-control-input" id="customCheckBox3" required="">
+                                        <label class="custom-control-label" for="customCheckBox3"></label>
+                                    </div>
+                                </td>
+                                <td>P{{prescription.id}}</td>
+                                <td>{{prescription.patient.code}}</td>
+                                <td>{{prescription.examen}}</td>
+                                {% if not laboratoires %}
+                                <td>{{prescription.laboratoire.nom}} {{prescription.laboratoire.ville}} {{prescription.laboratoire.quartier}}</td>
+                                {% endif %}
+                                <td>{{prescription.clinic.nom}} {{prescription.clinic.ville}} {{prescription.clinic.quartier}}</td>
+                                {% if prescription.date_prelevement == None %}
+                                <td>Non mentionnée</td>
+                                {% else %}
+                                <td>{{prescription.date_prelevement}}</td>
+                                {% endif %}
+                                {% if prescription.status == 0 %}
+                                <td>
+                                    <span class="badge light badge-danger">
+                                        <i class="fa fa-circle text-danger mr-1"></i>
+                                        En attente
+                                    </span>
+                                </td>
+                                {% else %}
+                                <td>
+                                    <span class="badge light badge-success">
+                                        <i class="fa fa-circle text-success mr-1"></i>
+                                        Disponible 
+                                    </span>
+                                </td>
+                                {% endif %}
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{% url 'detail-prescription' prescription.id %}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-eye"></i></a>
+                                        {% if prescription.status == 0 %}
+                                        <a href="{% url 'mise-a-jour-prescriptions' prescription.id %}" class="btn btn-secondary shadow btn-xs sharp"><i class="fa fa-pencil"></i></a>
+                                        {% endif %}
+                                    </div>
+                                </td>												
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

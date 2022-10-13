@@ -1,0 +1,72 @@
+{% extends "sandi/base.html"%}
+{% block content %}
+<div class="row">
+    <div class="col-xl-6 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                {% if object %}
+                <h4 class="card-title "><span class="text-primary mb-4">Modification</span> {{object.nom}} {{object.prenom}} {{object.code}}</h4>
+                {% else %}
+                <h4 class="card-title">Enregistrer un patient</h4>
+                {% endif %}
+                <a href="{% url 'creer-prescriptions' %}" title="Faire une prescription"><i class="flaticon-044-file"></i></a>
+            </div>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form method="post" action="" id="patient">
+                        {% csrf_token %}
+                        <div class="form-row ">
+                                <div class="form-group col-md-6">
+                                    <label><b>Sexe</b></label>
+                                    <span class="text-danger">*</span>
+                                    {{form.sexe}}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label><b>Nom</b></label>
+                                    <span class="text-danger">*</span>
+                                    {{form.nom}}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label><b>Prénom</b></label>
+                                    <span class="text-danger">*</span>
+                                    {{form.prenom}}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label><b>Âge</b></label>
+                                    <span class="text-danger">*</span>
+                                    {{form.age}}
+                                </div> 
+                                <div class="form-group col-md-6">
+                                    <label>Télèphone</label>
+                                    {{form.telephone}}
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Quartier</label>
+                                    {{form.quartier}}
+                                </div>
+                               
+                                <!--<div class="form-group col-md-6">
+                                    <label><b>Code patient</b></label>
+                                    <span class="text-danger">*</span>
+                                    {{form.code}}
+                                </div>-->
+                        </div>
+                        {% if object %}
+                        <a href="{% url 'detail-patient' object.id %}" class="btn light btn-secondary mb-2  mr-2">Annuler</a>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary mb-2  mr-2">Enregistrer <span class="btn-icon-right">
+                            <i class="fa fa-save"></i>
+                        </span>
+                        </button>
+                        {% if not object %}
+                        <!--<input type="button" id="btn1" class="btn tp-btn-secondary btn-dark mb-2  mr-2" onClick="onClick();" value="Code"/>-->
+                        <input type ="reset" class="btn light btn-info mb-2  mr-2" value="Reset" />
+                        {% endif %}
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

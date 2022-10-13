@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SanDi Résultat</title>
+    <style>
+        body{
+            background-color: #F6F6F6; 
+            margin: 0;
+            padding: 0;
+            bottom: 20px;
+        }
+        h1,h2,h3,h4,h5,h6{
+            margin: 0;
+            padding: 0;
+        }
+        p{
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+        }
+        .container{
+            width: 80%;
+            margin-right: auto;
+            margin-left: auto;
+            padding-left: auto;
+            padding-right: auto;
+        }
+        .brand-section{
+           background-color: #fff;
+           /**padding: 10px 40px;**/
+           font-size: 20px;
+           
+        }
+        .logo{
+            width: 100px;
+            height: 100px;
+        }
+
+        .row{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .col-6{
+            width: 50%;
+            flex: 0 0 auto;
+        }
+        .text-white{
+            color: #000;
+            color: #259c96;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        .company-details{
+            float: right;
+            text-align: right;
+        }
+        .body-section{
+            padding: 16px;
+            border: 1px solid gray;
+        }
+        .heading{
+            font-size: 15px;
+            margin-bottom: 03px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .sub-heading{
+            color: #262626;
+            margin-bottom: 05px;
+            font-size: 14px
+        }
+        table{
+            background-color: #fff;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table thead tr{
+            border: 1px solid #111;
+            background-color: #54f1ea;
+            
+        }
+        table td {
+            
+            vertical-align: middle !important;
+            text-align: center;
+        }
+        table th, table td {
+            padding-top: 08px;
+            padding-bottom: 08px;
+            font-size: 13px
+        }
+        .table-bordered{
+            box-shadow: 0px 0px 5px 0.5px gray;
+        }
+        .table-bordered td, .table-bordered th {
+            border: 1px solid #dee2e6;
+        }
+        .text-right{
+            text-align: end;
+        }
+        .w-20{
+            width: 20%;
+        }
+        .float-right{
+            float: right;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="brand-section">
+            <div class="row">
+                <div class="col-6">
+                    <h1 class="text-white" style="text-align: center;">COMPTE RENDU DES RESULTATS</h1>
+                </div>
+               
+            </div>
+        </div>
+        {% for resultat in one_resultat %}
+        <div class="body-section">
+            <div class="row">
+                <div class="col-6">
+                    <h2 class="heading">Clinique {{resultat.result_prescription.clinic}} Tel :{{resultat.result_prescription.clinic.telcli}} </h2>
+                    <p class="sub-heading">Prelevement effectue le: {{resultat.result_prescription.date_prelevement}} </p>
+                </div>
+                <div class="col-6">
+                    <p class="sub-heading">Patient: {{resultat.result_prescription.patient}} </p>
+                    <p class="sub-heading">Quartier: {{resultat.result_prescription.patient.quartier}} </p>
+                    <p class="sub-heading">Numero de telephone: {{resultat.result_prescription.patient.telephone}} </p>
+                    <p class="sub-heading">Age : {{resultat.result_prescription.patient.age}} ans</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="body-section">
+            {% for resultat in one_resultat %}
+            <h3>P.{{resultat.result_prescription.id}}</h3>
+            {% endfor %}
+          {% for resultat in resultats %}
+            <table class="table-bordered">
+                <thead>
+                    <tr>
+                        <th>{{resultat.categorie}}</th>
+                        <th>Resultat</th>
+                        <th>Valeur de Reference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{resultat.examen}}</td>
+                        {% for valeur in valeurs_resultats %}
+                            {% if valeur.id == resultat.resultat_rapide %}
+                        <td>{{valeur.resultat_examen | safe}}</td>
+                            {% endif %}
+                        {% endfor %}
+                        {% if resultat.resultat_examen %}
+                        <td>{{resultat.resultat_examen | safe}}</td>
+                        {% endif %}
+                        {% for reference in valeurs_reference %}
+                            {% if reference.examen == resultat.examen %}
+                        <td>{{reference.valeur_reference}}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+
+                </tbody>
+                
+            </table>
+            {% endfor %}
+            <br>
+            {% for resultat in one_resultat %}
+            {% if resultat.file %}
+            <h2 style="color: red;">Il y'a un fichier joint &agrave; ce compte rendu</h2>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="body-section">
+            <p>&copy; Copyright 2022 - SanDi. All rights reserved. 
+                <a href="https://www.sandi.cm/" class="float-right">www.sandi.cm</a>
+            </p>
+        </div>      
+    </div>      
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+{% extends "sandi/base.html"%}
+{% block title %}Liste des résultats aux examens prescrits sur SanDi{% endblock title %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Résultats
+                    </a>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example3" class="display" style="min-width: 845px">
+                        <thead>
+                            
+                            <tr>
+                                <th>
+                                    <div class="custom-control custom-checkbox ml-2">
+                                        <input type="checkbox" class="custom-control-input" id="checkAll" required="">
+                                        <label class="custom-control-label" for="checkAll"></label>
+                                    </div>
+                                </th>
+                                <th>Prescription</th>
+                                <th>Résultat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for resultat in list_resultat %}
+                            <tr>
+                                
+                                <td>
+                                    <div class="custom-control custom-checkbox ml-2">
+                                        <input type="checkbox" class="custom-control-input" id="customCheckBox3" required="">
+                                        <label class="custom-control-label" for="customCheckBox3"></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="bootstrap-popover d-inline-block">
+                                        <button type="button" class="btn btn-info btn-sm px-4 " data-container="body" data-toggle="popover" data-placement="bottom" data-content="Prescription de {{resultat.result_prescription.patient}} avec pour examen(s): {{resultat.result_prescription.examen}}. Date de prélèvement le {{resultat.result_prescription.date_prelevement}}" title="Infos sur la prescription">P{{resultat.result_prescription.id}}</button>
+                                    </div>
+                                </td>
+                                
+                                <td>
+                                    {% if resultat.resultat_examen %}
+                                    <a href="{% url 'resultat-pdf' resultat.result_prescription.id %}" target="_blank" rel="noopener noreferrer">
+                                        <button type="button" class="btn btn-rounded btn-success"><span class="btn-icon-left text-success"><i class="fa fa-file-pdf-o color-success" aria-hidden="true"></i>
+                                        </span>Ouvrir</button>
+                                    </a>
+                                    {% elif resultat.resultat_rapide %}
+                                    <a href="{% url 'resultat-pdf' resultat.result_prescription.id %}" target="_blank" rel="noopener noreferrer">
+                                        <button type="button" class="btn btn-rounded btn-success"><span class="btn-icon-left text-success"><i class="fa fa-file-pdf-o color-success" aria-hidden="true"></i>
+                                        </span>Ouvrir</button>
+                                    </a>
+                                    {% endif %}
+                                    {% if resultat.file %}
+                                    <a href="media/{{resultat.file}}" target="_blank" rel="noopener noreferrer">
+                                        <button type="button" class="btn btn-rounded btn-info"><span class="btn-icon-left text-info"><i class="fa fa-file-text-o color-info" aria-hidden="true"></i>
+                                        </span>Fichier joint</button>
+                                    </a>
+                                    {% endif %}
+                                </td>
+                              												
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

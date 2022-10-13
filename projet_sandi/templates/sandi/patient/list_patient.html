@@ -1,0 +1,59 @@
+{% extends "sandi/base.html"%}
+{% block title %}Liste des patients{% endblock title %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">patients
+                    <a href="{% url 'creer-patients' %}"><button type="button" class="btn btn-info"> <span class="fa fa-plus-circle"> </span> <b>Ajouter Patient</b> <span class="btn-icon-right"><i class="flaticon-381-user-8"></i></span></button>
+                    </a>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example3" class="display" style="min-width: 845px">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Sexe</th>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Code</th>
+                                <th>Âge</th>
+                                <th>Mobile</th>
+                                <th>Quartier</th>
+                                <th>Date création</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for patient in list_patient %}
+                            <tr>
+                                <td><img class="rounded-circle" width="35" src="" alt=""></td>
+                                <td>{{patient.sexe}}</td>
+                                <td>{{patient.nom}}</td>
+                                <td>{{patient.prenom}}</td>
+                                <td>{{patient.code}}</td>
+                                <td>{{patient.age}}</td>
+                                <td>{{patient.telephone}}</td>
+                                <td>{{patient.quartier}}</td>
+                                <td>{{patient.date_creation}}</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{% url 'detail-patient' patient.id %}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-eye"></i></a>
+                                        <a href="{% url 'mise-a-jour-patients' patient.id %}" class="btn btn-secondary shadow btn-xs sharp"><i class="fa fa-pencil"></i></a>
+
+                                        <!--<a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>-->
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
